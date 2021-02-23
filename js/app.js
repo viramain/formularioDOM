@@ -98,7 +98,6 @@ function validarGeneral(event) {
         validarConsulta(document.getElementById("consulta")) &&
         validarTerminos()) {
         // debo mandar el mail
-        alert("Datos listos para enviar");
         enviarEmail();
     } else {
         // debo mostrar error y no mandar mail
@@ -106,6 +105,35 @@ function validarGeneral(event) {
     }
 }
 
+// Se usa emailJS y se trae el formato del objeto para completar con los valores de los input
 function enviarEmail() {
-    console.log("desde la funcion enviar email")
+    console.log("desde la funcion enviar email");
+    emailjs.send("service_w1eakad", "template_fc83dr5", {
+        from_name: document.getElementById("nombre").value,
+        to_name: "Administrador del sitio",
+        email: document.getElementById("email").value,
+        consulta: document.getElementById("consulta").value,
+        telefono: document.getElementById("telefono").value
+    }).then(function(response) {
+        // se ejecuta cuando todo salio bien (se cumplio la promesa)
+        // console.log(response);
+        document.getElementById("mensaje").innerHTML += `<div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
+        Tu solicitud fue enviada correctamente.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+        limpiarForm();
+    }, function(error) {
+        //se ejecuta cuando algo salio mal al enviar el email
+        // console.log(error);
+        document.getElementById("mensaje").innerHTML += `<div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
+        Ocurrió un error. Inténtelo en unos minutos.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+    })
+}
+
+function limpiarForm() {
+    document.getElementById("formSuscripcion").reset();
+    document.getElementById("nombre").className = "form-control";
+    document.getElementById("email").className = "form-control";
+    document.getElementById("telefono").className = "form-control";
+    document.getElementById("consulta").className = "form-control";
 }
