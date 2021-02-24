@@ -1,8 +1,8 @@
 function campoRequerido(input) {
     // This toma todo el elemento que estoy utilizando
-    console.log("perdi foco y estoy en la funcion campo requerido")
-        // let input = document.getElementById(`nombre`);
-        // trim() quita espacios vacios al principio
+    // console.log("perdi foco y estoy en la funcion campo requerido")
+    // let input = document.getElementById(`nombre`);
+    // trim() quita espacios vacios al principio
     if (input.value.trim() === "") {
         // if (input.value.length > 0){
         // classname sobreescribe, asi que hay que mantener todas las clases que uno quiera y agregar las nuevas
@@ -45,7 +45,19 @@ function validarNumeros(numeros) {
     }
 }
 
-//--- Validar TEXTAREA: que no este vacio y ademas haya ingresado al menos 10 caracteres ------
+//--- validacion TEXTAREA desde JS usando addEventListener
+// let varConsulta = document.getElementById("consulta");
+// varConsulta.addEventListener("blur", validarConsulta);
+// function validarConsulta() {
+//     if (varConsulta.value.trim() != "" && varConsulta.value.length >= 10) {
+//         varConsulta.className = "form-control is-valid";
+//         return true;
+//     } else {
+//         varConsulta.className = "form-control is-invalid";
+//         return false;
+// }
+//--------------------------------------------------------
+//--- Validar TEXTAREA usando onblur() en html: que no este vacio y ademas haya ingresado al menos 10 caracteres ------
 function validarConsulta(consulta) {
     if (consulta.value.trim() != "" && consulta.value.length >= 10) {
         consulta.className = "form-control is-valid";
@@ -55,17 +67,19 @@ function validarConsulta(consulta) {
         return false;
     }
 }
+//------------------------------------------------------------------------
 
+//----------------------------------------------------------------------------------------------
 // OTRA FORMA DE VALIDAR DESDE JS: Agregar eventos desde JS
 // trae la etiqueta completa del checkbox a una variable global "checkTerminos"
 let checkTerminos = document.getElementById("terminos");
 
-// se llama a funcion validarTerminos sin parentesis
+// luego llama a funcion validarTerminos sin parentesis
 // cuando se ejecute el evento change, llamar a funcion validarTerminos
 checkTerminos.addEventListener("change", validarTerminos);
 
 function validarTerminos() {
-    console.log(checkTerminos);
+    // console.log(checkTerminos);
     // si checked es true
     if (checkTerminos.checked) {
         checkTerminos.className = "form-check-input is-valid";
@@ -76,6 +90,7 @@ function validarTerminos() {
     }
 }
 //---------------------------------------------FIN OTRA FORMA DE VALIDAR
+
 // --- FUNCION ANONIMA: solo se ejecuta cuando se ejecuta en evento CHANGE (en este caso) -----
 // checkTerminos.addEventListener("change", function () {
 //     console.log("desde validarTerminos")
@@ -90,7 +105,7 @@ function validarTerminos() {
 function validarGeneral(event) {
     // detener el evento submit para hacer funciones antes de enviar
     event.preventDefault();
-    console.log(event);
+    //console.log(event);
     // llama a las funciones xa validar datos
     if (campoRequerido(document.getElementById("nombre")) &&
         validarEmail(document.getElementById("email")) &&
@@ -107,7 +122,6 @@ function validarGeneral(event) {
 
 // Se usa emailJS y se trae el formato del objeto para completar con los valores de los input
 function enviarEmail() {
-    console.log("desde la funcion enviar email");
     emailjs.send("service_w1eakad", "template_fc83dr5", {
         from_name: document.getElementById("nombre").value,
         to_name: "Administrador del sitio",
@@ -136,4 +150,6 @@ function limpiarForm() {
     document.getElementById("email").className = "form-control";
     document.getElementById("telefono").className = "form-control";
     document.getElementById("consulta").className = "form-control";
+    // cierra la ventana alert si no la cerró manualmente el usuario
+    setTimeout(function() { document.getElementById("mensaje").innerHTML = `<div></div>`; }, 5000);
 }

@@ -43,7 +43,7 @@
                         <label class="form-label">Nombre y Apellido *</label>
                         <!-- la etiqueta input lleva la clase form-control -->
                         <input type="text" class="form-control" id="nombre" placeholder="Juan Perez" onblur="campoRequerido(this)" required>
-                        <!-- validacion de datos se usa la clase is-valid ó ininvalid en input (pone tilde)
+                        <!-- validacion de datos se usa la clase is-valid ó is-invalid en input (pone tilde)
                         y valid-feedback ó invalid-feedback en un div da mensaje de ok-->
                         <div class="invalid-feedback">
                             Debe ingresar un nombre y apellido
@@ -68,13 +68,16 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Consulta *</label>
-                        <textarea id="consulta" class="form-control" placeholder="ingrese su consulta" onblur="validarConsulta(this)" required></textarea>
+                        <textarea id="consulta" class="form-control" placeholder="ingrese su consulta"></textarea>
+                        <!-- <textarea id="consulta" class="form-control" placeholder="ingrese su consulta" onblur="validarConsulta(this)" required></textarea> -->
+
                         <div class=" invalid-feedback ">
                             Debe ingresar una consulta de al menos 10 caracteres
                         </div>
                     </div>
                     <div class="mb-3 ">
                         <div class="form-check ">
+                            <!-- No valida con onblur sino desde JS con addEventListener-->
                             <input type="checkbox" id="terminos" class="form-check-input" required>
                             <label class="form-check-label ">Esta de acuerdo con los términos y condiciones</label>
                             <div class="invalid-feedback">
